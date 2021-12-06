@@ -19,6 +19,7 @@ const playAgainButton = document.querySelector(".play-again");
 const word = "magnolia";
 const guessedLetters = [];
 
+//symbols display as placeholders for letters chosen
 const letterWordSymbol = function (word) {
    const letterWordSymbolIcon = [];
    for (const letter of word) {
@@ -35,9 +36,9 @@ guessButton.addEventListener("click", function (e) {
    //Remove message
    guessedLetterMessage.innerText = "";
    //Pull what is entered in the inputGuess
-   const guessLetter = inputGuess.value;
+   const guess = inputGuess.value;
    //Check that it is a letter
-   const rightGuess = validateInput(guessLetter);
+   const rightGuess = validateInput(guess);
    if (rightGuess) {
       makeGuess(guess);
    }
@@ -47,12 +48,13 @@ guessButton.addEventListener("click", function (e) {
 const validateInput = function (input) {
    const acceptedLetter = /[a-zA-Z]/;
    if (input.length === 0) {
-      message.innerText = "Oops you need to enter a letter.";
+      guessedLetterMessage.innerText = "Oops you need to enter a letter.";
    } else if (input.length > 1) {
-      message.innerText = "Please enter one letter.";
+      guessedLetterMessage.innerText = "Please enter one letter.";
    } else if (!input.match(acceptedLetter)) {
-      message.innerText = "This field must be a letter.";
+      guessedLetterMessage.innerText = "This field must be a letter.";
    } else {
+      //a letter has been entered
       return input;
    }
 };
@@ -60,7 +62,7 @@ const validateInput = function (input) {
 const makeGuess = function (guess) {
    guess = guess.toUpperCase();
    if (guessedLetters.includes(guess)) {
-      message.innerText = "You already guessed that letter, try again!";
+      guessedLetterMessage.innerText = "You already guessed that letter, try again!";
    } else {
       guessedLetters.push(guess);
       console.log(guessedLetters);
